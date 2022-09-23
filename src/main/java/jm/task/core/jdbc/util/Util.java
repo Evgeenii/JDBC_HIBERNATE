@@ -5,42 +5,46 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class Util implements AutoCloseable {
-    private static Connection connection;
+public final class Util {
+    private static final String DB_DRIVER_PATH = "db.driver";
+    private static final String DB_URL = "db.url";
+    private static final String DB_USER = "db.username";
+    private static final String DB_PASSWORD = "db.password";
+
+    private Util() {
+
+    }
 
     static {
-        String DB_URL = "jdbc:mysql://localhost:3306/jdbc_test";
-        String DB_USER = "root";
-        String DB_PASSWORD = "74Zumadu0996";
-        String DB_DRIVER_PATH = "com.mysql.cj.jdbc.Driver";
-
-        try {
-            Class.forName(DB_DRIVER_PATH);
-            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("SQL Err");
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Driver Err");
-
-        }
+        loadDriver();
+        openConnection();
     }
 
     public static Connection getSQLConnection() {
-        return connection;
+        return openConnection();
     }
 
-    @Override
-    public void close() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    private static void loadDriver() {
+        try {
+            Class.forName(PropertiesUtil.getPropertyValue(DB_DRIVER_PATH));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Driver Err");
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Connection openConnection() {
+        try {
+            return DriverManager.getConnection(
+                    PropertiesUtil.getPropertyValue(DB_URL),
+                    PropertiesUtil.getPropertyValue(DB_USER),
+                    PropertiesUtil.getPropertyValue(DB_PASSWORD)
+            );
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("SQL Err");
+            throw new RuntimeException(e);
         }
     }
 }
