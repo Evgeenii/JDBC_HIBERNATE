@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class Util {
+public class Util implements AutoCloseable {
     private static Connection connection;
 
     static {
@@ -33,7 +33,8 @@ public class Util {
         return connection;
     }
 
-    public static void closeSQLConnection() {
+    @Override
+    public void close() {
         if (connection != null) {
             try {
                 connection.close();

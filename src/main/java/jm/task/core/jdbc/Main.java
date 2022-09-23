@@ -2,7 +2,6 @@ package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserServiceImpl;
-import jm.task.core.jdbc.util.Util;
 
 import java.util.Arrays;
 
@@ -17,7 +16,7 @@ public class Main {
         User user3 = new User("Ivan", "Petrov", (byte) 20);
         User user4 = new User("Petr", "Petrov", (byte) 10);
 
-        for (User user : Arrays.asList(user1, user2, user3)) {
+        for (User user : Arrays.asList(user1, user2, user3, user4)) {
             userService.saveUser(user.getName(), user.getLastName(), user.getAge());
             System.out.println("User c именем " + user.getName() + " добавлен в базу данных");
         }
@@ -25,6 +24,6 @@ public class Main {
         System.out.println(userService.getAllUsers());
         userService.cleanUsersTable();
         userService.dropUsersTable();
-        Util.closeSQLConnection();
+
     }
 }
