@@ -21,9 +21,9 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void createUsersTable() {
         try (Connection connection = Util.getSQLConnection();
-
+             Statement statement = connection.createStatement()
         ) {
-            Statement statement = connection.createStatement();
+
             statement.execute("CREATE TABLE IF NOT EXISTS usersTable" +
                               "(id INT primary key auto_increment," +
                               "name VARCHAR(50)," +
@@ -97,7 +97,6 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
         return users;
     }
 
