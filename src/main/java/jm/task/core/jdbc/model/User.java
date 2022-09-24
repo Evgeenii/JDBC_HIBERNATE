@@ -1,21 +1,22 @@
 package jm.task.core.jdbc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Table
+@Entity
+@Table(name = "users_tst")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column
+    @Column(name = "age")
     private Byte age;
 
     public User() {
@@ -68,5 +69,33 @@ public class User {
                ", lastName='" + lastName + '\'' +
                ", age=" + age +
                '}';
+    }
+
+    public static class Builder {
+        private User newUser;
+
+        public Builder() {
+            newUser = new User();
+        }
+
+        public Builder name(String name) {
+            newUser.name = name;
+            return this;
+        }
+
+        public Builder lastName(String lastName) {
+            newUser.lastName = lastName;
+            return this;
+        }
+
+        public Builder age(byte age) {
+            newUser.age = age;
+            return this;
+        }
+
+        public User build() {
+            return newUser;
+
+        }
     }
 }
