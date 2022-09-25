@@ -61,6 +61,10 @@ public class User {
         this.age = age;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public String toString() {
         return "User{" +
