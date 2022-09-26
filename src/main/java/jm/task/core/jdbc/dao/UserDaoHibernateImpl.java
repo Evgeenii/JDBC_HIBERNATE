@@ -1,6 +1,7 @@
 package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.util.Util;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,11 +10,8 @@ import org.hibernate.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jm.task.core.jdbc.util.Util.*;
-
 public class UserDaoHibernateImpl implements UserDao {
-    private final SessionFactory sessionFactory = getSession();
-
+    private final SessionFactory sessionFactory = Util.getInstance().getSession();
 
     public UserDaoHibernateImpl() {
 
