@@ -2,9 +2,7 @@ package jm.task.core.jdbc;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserServiceImpl;
-
 import java.util.Arrays;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -18,13 +16,10 @@ public class Main {
 
         for (User user : Arrays.asList(user1, user2, user3, user4)) {
             userService.saveUser(user.getName(), user.getLastName(), user.getAge());
-            System.out.println("User c именем " + user.getName() + " добавлен в базу данных");
+            System.out.printf("User с именем – %s добавлен в базу данных %n", user.getName());
         }
-
         System.out.println(userService.getAllUsers());
         userService.cleanUsersTable();
         userService.dropUsersTable();
-
-
     }
 }
