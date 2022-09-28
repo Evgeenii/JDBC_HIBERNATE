@@ -5,7 +5,6 @@ import jm.task.core.jdbc.service.UserServiceImpl;
 
 import java.util.Arrays;
 
-
 public class Main {
     public static void main(String[] args) {
         UserServiceImpl userService = new UserServiceImpl();
@@ -24,7 +23,5 @@ public class Main {
         System.out.println(userService.getAllUsers());
         userService.cleanUsersTable();
         userService.dropUsersTable();
-
-
     }
 }

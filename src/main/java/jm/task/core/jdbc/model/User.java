@@ -1,6 +1,7 @@
 package jm.task.core.jdbc.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users_tst")
@@ -61,8 +62,25 @@ public class User {
         this.age = age;
     }
 
-    public static Builder builder() {
-        return new Builder();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        User user = (User) o;
+        return Objects.equals(getId(), user.getId()) &&
+               Objects.equals(getName(), user.getName()) &&
+               Objects.equals(getLastName(), user.getLastName())
+               && Objects.equals(getAge(), user.getAge());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getLastName(), getAge());
     }
 
     @Override
@@ -73,33 +91,5 @@ public class User {
                ", lastName='" + lastName + '\'' +
                ", age=" + age +
                '}';
-    }
-
-    public static class Builder {
-        private User newUser;
-
-        public Builder() {
-            newUser = new User();
-        }
-
-        public Builder name(String name) {
-            newUser.name = name;
-            return this;
-        }
-
-        public Builder lastName(String lastName) {
-            newUser.lastName = lastName;
-            return this;
-        }
-
-        public Builder age(byte age) {
-            newUser.age = age;
-            return this;
-        }
-
-        public User build() {
-            return newUser;
-
-        }
     }
 }
