@@ -99,7 +99,6 @@ public class User {
 
         public User build() {
             return newUser;
-
         }
     }
 }

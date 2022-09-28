@@ -60,8 +60,7 @@ public final class Util {
             return DriverManager.getConnection(
                     PropertiesUtil.getPropertyValue(DB_URL),
                     PropertiesUtil.getPropertyValue(DB_USER),
-                    PropertiesUtil.getPropertyValue(DB_PASSWORD)
-            );
+                    PropertiesUtil.getPropertyValue(DB_PASSWORD));
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("SQL Err");
